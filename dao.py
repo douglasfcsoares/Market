@@ -1,9 +1,9 @@
-from model.model import *
+from model import *
 
 class DaoCategory:
     @classmethod
     def save(cls, category):
-        with open('dao/category.txt', 'a') as arq:
+        with open('category.txt', 'a') as arq:
             arq.writelines(category)
             arq.writelines('\n')
 
@@ -18,7 +18,7 @@ class DaoCategory:
             cat.append(Category(i))
             return cat
 
-# DaoCategory.save('Frutas')
-# DaoCategory.save('Verduras')
-# DaoCategory.save('Legumes')
+DaoCategory.save('Frutas')
+DaoCategory.save('Verduras')
+DaoCategory.save('Legumes')
 DaoCategory.read()
