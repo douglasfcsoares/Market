@@ -30,7 +30,7 @@ class Supplier: # Fornecedor
         self.cnpj = cnpj
         self.category = category
 
-class Person:
+class Person: # Pessoa
     def __init__(self, name, phone, cpf, email, address):
         self.name = name
         self.phone = phone

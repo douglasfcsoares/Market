@@ -18,10 +18,43 @@ class DaoCategory:
             cat.append(Category(i))
         return cat
 
-# DaoCategory.save('Frutas')
-# DaoCategory.save('Verduras')
-# DaoCategory.save('Legumes')
-# DaoCategory.read()
+class DaoProduct:
+    @classmethod
+    def save(cls, product: Products):
+        with open('product.txt', 'a') as arq:
+            arq.writelines(product.name + '|' + product.price + '|' + product.category)
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('product.txt', 'r') as arq:
+            cls.product = arq.readlines()
+        cls.product = list(map(lambda x: x.replace('\n', ''), cls.product))
+        cls.product = list(map(lambda x: x.split('|'), cls.product))
+        pro = []
+        for i in cls.product:
+            pro.append(Products(i[0], i[1], i[2]))
+        return pro
+
+class DaoStock:
+    @classmethod
+    def save(cls, stock: Stock):
+        with open('stock.txt', 'a') as arq:
+            arq.writelines(stock.product + '|' + stock.quantity)
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('stock.txt', 'r') as arq:
+            cls.stock = arq.readlines()
+            cls.stock = list(map(lambda x: x.replace('\n', ''), cls.stock))
+            cls.stock = list(map(lambda x: x.split('|'), cls.stock))
+
+            sto = []
+            if len(cls.stock) > 0:
+                for i in cls.stock:
+                    sto.append(Stock(Products(i[0], i[1], i[2], i[3])))
+            return sto
 
 class DaoSale:
     @classmethod
@@ -48,5 +81,44 @@ class DaoSale:
             sales.append(Sale(Products(i[0], i[1], i[2]), i[3], i[4], i[5], i[6]))
         return sales
 
-x = DaoSale.read()
-print(x[0].soldItems.name)
+class DaoSupplier:
+    @classmethod
+    def save(cls, supplier: Supplier):
+        with open('supplier.txt', 'a') as arq:
+            arq.writelines(supplier.name + '|' + supplier.phone + '|' + supplier.cnpj + '|' + supplier.category)
+            arq.writelines('\n')
+    @classmethod
+    def read(cls):
+        with open('supplier.txt', 'r') as arq:
+            cls.supplier = arq.readlines()
+            cls.supplier = list(map(lambda x: x.replace('\n', ''), cls.supplier))
+            cls.supplier = list(map(lambda x: x.split('|'), cls.supplier))
+            sup = []
+            for i in cls.supplier:
+                sup.append(Supplier(i[0], i[1], i[2], i[3]))
+            return sup
+
+class DaoPerson:
+    @classmethod
+    def save(cls, person: Person):
+        with open('person.txt', 'a') as arq:
+            arq.writelines(person.name + '|' + person.phone + '|' + person.cpf + '|' + person.email + '|' + person.address)
+class DaoEmployee:
+    @classmethod
+    def save(cls, employee: Employee):
+        with open('employee.txt', 'a') as arq:
+            arq.writelines(employee.clt + '|' + employee.name + '|' + employee.phone + '|' + employee.cpf + '|' + employee.email + '|' + employee.address)
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('employee.txt', 'r') as arq:
+            cls.employee = arq.readlines()
+            cls.employee = list(map(lambda x: x.replace('\n', ''), cls.employee))
+            cls.employee = list(map(lambda x: x.split('|'), cls.employee))
+            
+            employees = []
+            for i in cls.employee:
+                employees.append(Employee(i[0], i[1], i[2], i[3], i[4, i[5]]))
+            return employees
+        
