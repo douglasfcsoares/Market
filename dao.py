@@ -103,6 +103,19 @@ class DaoPerson:
     def save(cls, person: Person):
         with open('person.txt', 'a') as arq:
             arq.writelines(person.name + '|' + person.phone + '|' + person.cpf + '|' + person.email + '|' + person.address)
+            arq.writelines('\n')
+    @classmethod
+    def read(cls):
+        with open('person.txt', 'r') as arq:
+            cls.person = arq.readlines()
+            cls.person = list(map(lambda x: x.replace('\n', ''), cls.person))
+            cls.person = list(map(lambda x: x.split('|'), cls.person))
+
+            pers = []
+            for i in cls.person:
+                pers.append(Person(i[0], i[1], i[2], i[3], i[4]))
+            return pers
+
 class DaoEmployee:
     @classmethod
     def save(cls, employee: Employee):
@@ -121,4 +134,3 @@ class DaoEmployee:
             for i in cls.employee:
                 employees.append(Employee(i[0], i[1], i[2], i[3], i[4, i[5]]))
             return employees
-        
