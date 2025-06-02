@@ -33,5 +33,25 @@ class ControllerCategory:
                 for i in dao:
                     arq.write(dao[i].category + '\n')
 
-x = ControllerCategory()
-x.addCategory('frios')
+    def renameCategory(self, oldCategory, newCategory):
+        dao = DaoCategory.read()
+        category = list(filter(lambda dao: dao.category == oldCategory, dao))
+        if len(category) > 0:
+            category1 = list(filter(lambda dao: dao.category == oldCategory, dao))
+            if len(category1) == 0:
+                dao = list(map(lambda dao: Category(oldCategory) if(dao.category == newCategory) else(dao), dao))
+                print('A categoria foi alterada com sucesso.')
+            else:
+                print('A categoria que deseja alterar não existe.')
+        else:
+            print('A categoria que deseja alterar não exiaste.')
+
+        with open('category.txt', 'w') as arq:
+            for i in dao:
+                arq.writelines(i.category)
+                arq.writelines('\n')
+
+
+a = ControllerCategory()
+a.renameCategory('Frutas', 'Carnes')
+

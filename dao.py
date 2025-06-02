@@ -132,5 +132,5 @@ class DaoEmployee:
             
             employees = []
             for i in cls.employee:
-                employees.append(Employee(i[0], i[1], i[2], i[3], i[4, i[5]]))
+                employees.append(Employee(i[0], i[1], i[2], i[3], i[4], i[5]))
             return employees
